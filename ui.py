@@ -1,4 +1,5 @@
 import tkinter
+from tkinter import messagebox
 from quiz_brain import QuizBrain
 
 THEME_COLOR = "#375362"
@@ -8,11 +9,13 @@ class QuizInterface:
     def __init__(self, quiz_brain: QuizBrain):
         self.quiz = quiz_brain
         self.window = tkinter.Tk()
-        self.window.title('Quiz')
+        self.window.title('Quiz Application')
         self.window.config(padx=20, pady=20, bg=THEME_COLOR)
         self.window.iconbitmap("images/icon.ico")
         self.window.attributes('-alpha', 0.96)
         self.window.resizable(False, False)
+        self.window.protocol('WM_DELETE_WINDOW', self.__Main_del__)
+
         self.label = tkinter.Label(text='Score: 0', bg=THEME_COLOR, fg='white', font=('Arial', 15, 'normal'))
         self.label.grid(column=1, row=0)
         self.canvas = tkinter.Canvas(width=300, height=250)
@@ -57,3 +60,11 @@ class QuizInterface:
             self.canvas.config(bg='red')
             self.canvas.itemconfig(self.question_text, fill="white")
         self.window.after(1000, self.get_next_question)
+
+    # OVERRIDING CLOSE BUTTON && DESTRUCTOR FOR CLASS MAIN WINDOW
+    def __Main_del__(self):
+        if messagebox.askyesno("Quit", " Leave Application?"):
+            self.window.quit()
+            exit(0)
+        else:
+            pass
