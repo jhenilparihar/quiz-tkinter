@@ -10,6 +10,9 @@ class QuizInterface:
         self.window = tkinter.Tk()
         self.window.title('Quiz')
         self.window.config(padx=20, pady=20, bg=THEME_COLOR)
+        self.window.iconbitmap("images/icon.ico")
+        self.window.attributes('-alpha', 0.96)
+        self.window.resizable(False, False)
         self.label = tkinter.Label(text='Score: 0', bg=THEME_COLOR, fg='white', font=('Arial', 15, 'normal'))
         self.label.grid(column=1, row=0)
         self.canvas = tkinter.Canvas(width=300, height=250)
@@ -30,6 +33,7 @@ class QuizInterface:
 
     def get_next_question(self):
         self.canvas.config(bg='white')
+        self.canvas.itemconfig(self.question_text, fill=THEME_COLOR)
         self.label.config(text=f"Score : {self.quiz.score}")
         if self.quiz.still_has_questions():
             q_text = self.quiz.next_question()
@@ -48,6 +52,8 @@ class QuizInterface:
     def feedback(self, is_right):
         if is_right:
             self.canvas.config(bg='green')
+            self.canvas.itemconfig(self.question_text, fill="white")
         else:
             self.canvas.config(bg='red')
+            self.canvas.itemconfig(self.question_text, fill="white")
         self.window.after(1000, self.get_next_question)
