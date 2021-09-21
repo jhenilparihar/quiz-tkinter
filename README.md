@@ -7,4 +7,4 @@ Quiz Application Using Tkinter Python with object-oriented programming.
 
 <em>Note: Don't make changes in Type of Question and Encoding or select Question Type - True/False and Encoding - Default Encoding to run program perfectly</em>
 
-#### Don't Forget to Star this Repository
+#### If you liked this Repo then please Star, Fork and Share this so others can also see 
