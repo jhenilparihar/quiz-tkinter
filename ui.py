@@ -15,6 +15,7 @@ class QuizInterface:
         self.window.attributes('-alpha', 0.96)
         self.window.resizable(False, False)
         self.window.protocol('WM_DELETE_WINDOW', self.__Main_del__)
+        self.exit_ = False
 
         self.label = tkinter.Label(text='Score: 0', bg=THEME_COLOR, fg='white', font=('Arial', 15, 'normal'))
         self.label.grid(column=1, row=0)
@@ -43,6 +44,7 @@ class QuizInterface:
             self.canvas.itemconfig(self.question_text, text=q_text)
         else:
             self.canvas.itemconfig(self.question_text, text='You Have Completed The Quiz')
+            self.exit_ = True
             self.true.config(state='disable')
             self.false.config(state='disable')
 
@@ -63,8 +65,9 @@ class QuizInterface:
 
     # OVERRIDING CLOSE BUTTON && DESTRUCTOR FOR CLASS MAIN WINDOW
     def __Main_del__(self):
-        if messagebox.askyesno("Quit", " Leave Application?"):
-            self.window.quit()
-            exit(0)
+        if not self.exit_:
+            if messagebox.askyesno("Quit", " Leave Application?"):
+                self.window.quit()
+                exit(0)
         else:
-            pass
+            exit(0)
